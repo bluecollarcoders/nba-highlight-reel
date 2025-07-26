@@ -1,0 +1,258 @@
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.app {
+  text-align: center;
+  padding: 40px; /* Reduce padding for smaller screens */
+}
+
+h1 {
+  font-size: 42px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+  margin-bottom: 10px; /* Reduce spacing */
+}
+
+
+/* Responsive Video Grid */
+.video-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Adjust for responsive grid */
+  gap: 20px;
+  padding: 20px;
+}
+
+.video-card {
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 300px; /* Ensure all cards align */
+  border-radius: 10px;
+  box-shadow: 2px 4px 8px rgba(0, 0, 0, 0.15);
+  transition: transform 0.2s ease-in-out;
+}
+
+.video-card:hover {
+  transform: scale(1.03);
+}
+
+.video-card img {
+  width: auto; /* Ensure images fit the card */
+  height: auto;
+}
+
+.video-card h3 {
+  font-size: 16px;
+  padding: 10px;
+}
+
+/* Search Bar */
+.search-bar {
+  margin-bottom: 20px;
+}
+
+.search-bar input {
+  width: 100%; /* Full width for mobile */
+  max-width: 500px; /* Add max-width for desktops */
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+}
+
+/* Modal Styles */
+.video-modal {
+  position: relative;
+  background: #000;
+  border-radius: 8px;
+  padding: 20px;
+  max-width: 90%; /* Adjust modal width for mobile */
+  margin: auto;
+}
+
+.video-modal-overlay {
+  background: rgba(0, 0, 0, 0.8);
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.close-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: #ff0000;
+  color: #fff;
+  border: none;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+}
+
+/* Pagination */
+.pagination {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.pagination button {
+  padding: 10px 15px;
+  border: 1px solid #ccc;
+  background: #fff;
+  cursor: pointer;
+}
+
+.pagination button.active {
+  background: #007bff;
+  color: #fff;
+}
+
+.pagination button:disabled {
+  background: #f4f4f4;
+  color: #ccc;
+  cursor: not-allowed;
+}
+
+.date-picker {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.date-picker button {
+  padding: 10px 15px;
+  border: none;
+  background-color: #007bff;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.date-picker button:hover {
+  background-color: #0056b3;
+}
+
+.date-picker input {
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.flex-container {
+  display: flex;
+  gap: 10px; /* Add space between buttons */
+  justify-content: center; /* Center align the buttons */
+  margin-bottom: 20px; /* Add spacing below the button group */
+}
+
+.flex-container button {
+  padding: 10px 15px;
+  border: none;
+  background-color: #007bff;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.flex-container button:hover {
+  background-color: #0056b3;
+}
+
+.favorite {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  color: gray;
+}
+
+.favorite.active {
+  color: gold; /* Highlight favorited items */
+}
+
+/* General Button Styles */
+.toggle-favorites,
+.refresh-button {
+  padding: 10px 15px;
+  font-size: 16px;
+  font-weight: bold;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  margin: 10px;
+}
+
+/* Show Favorites Button */
+.toggle-favorites {
+  background-color: #007bff;
+  color: white;
+}
+
+.toggle-favorites:hover {
+  background-color: #0056b3;
+}
+
+/* Refresh Videos Button */
+.refresh-button {
+  background-color: #28a745;
+  color: white;
+}
+
+.refresh-button:hover {
+  background-color: #218838;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  margin-bottom: 20px;
+}
+
+.logo {
+  width: 100px; /* Adjust size */
+  height: auto;
+}
+
+
+
+/* Media Queries for Mobile */
+@media (max-width: 768px) {
+  .app {
+    padding: 20px;
+  }
+
+  .video-card h3 {
+    font-size: 14px; /* Adjust font size for smaller screens */
+  }
+
+  .video-modal {
+    max-width: 95%; /* Ensure modal fits on smaller screens */
+    padding: 15px;
+  }
+
+  .search-bar input {
+    width: 90%; /* Take most of the screen width */
+  }
+}
