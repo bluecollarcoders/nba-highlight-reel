@@ -39,9 +39,6 @@ cd highlight-reel
 ### 2. Setup environment variables
 Copy and configure the .env files:
 
-bash
-Copy
-Edit
 cp client/.env.example client/.env
 cp server/.env.example server/.env
 Update:
