@@ -31,9 +31,8 @@ highlight-reel/
 
 ## 🚀 Getting Started (Local)
 
-### 1. Clone the repo
+## 1. Clone the repo
 
-```bash
 git clone https://github.com/your-username/highlight-reel.git
 cd highlight-reel
 
