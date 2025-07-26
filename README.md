@@ -23,11 +23,13 @@ A full-stack NBA highlight browser that lets users search and filter YouTube hig
 
 ## 📂 Project Structure
 
+<pre> ```
 highlight-reel/
 ├── client/ # React frontend (Vite)
 ├── server/ # Express backend (YouTube proxy)
 ├── .gitignore
 └── README.md
+``` </pre>
 
 ## 🚀 Getting Started (Local)
 
