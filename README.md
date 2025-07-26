@@ -41,8 +41,11 @@ cd highlight-reel
 ### 2. Setup environment variables
 Copy and configure the .env files:
 
+<pre> ```
 cp client/.env.example client/.env
 cp server/.env.example server/.env
+``` </pre>
+
 Update:
 
 YOUTUBE_API_KEY in server/.env
