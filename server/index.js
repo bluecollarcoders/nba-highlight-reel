@@ -30,20 +30,25 @@ const limiter = rateLimit({
   }
 });
 
-app.use(limiter);
+app.use('/api', limiter);
 
-// Caching in-memory.
-let cachedReponse = null;
-let lastFetched = 0;
+// In-memory cache per-request.
+const cache = new Map();
 const CACHE_DURATION = 1000 * 60 * 5; // 5 minutes
 
 app.get('/api/videos', async (req, res) => {
     const { q, channelId, publishedAfter, publishedBefore, pageToken } = req.query;
-
+    
+    const cacheKey = `${q}-${channelId}-${publishedAfter}-${publishedBefore}-${pageToken}`;
     const now = Date.now();
-    if (cachedReponse && now - lastFetched < CACHE_DURATION) {
-        console.log('Serving from cache');
-        return res.json(cachedReponse);
+
+    // Serve from cache if available and fresh.
+    if (cache.has(cacheKey)) {
+        const { data, timestamp } = cache.get(cacheKey);
+        if (now - timestamp < CACHE_DURATION) {
+        console.log('✅ Serving from cache:', cacheKey);
+        return res.json(data);
+        }
     }
 
     try {
@@ -61,13 +66,15 @@ app.get('/api/videos', async (req, res) => {
             }
         });
 
-        cachedReponse = response.data;
-        lastFetched = Date.now();
-        console.log('📡 Fetched from YouTube API');
-        res.json(response.data);
+        const data = response.data;
+
+        cache.set(cacheKey, { data, timestamp: now });
+        console.log('📡 Fetched and cached:', cacheKey);
+
+        res.json(data);
 
     } catch (error) {
-        console.error('Error fetching from YouTube API:', error.message);
+        console.error('❌ YouTube API Error:', error.message);
         res.status(500).json({ error: 'Failed to fetch data from YouTube API' });
     }
 });

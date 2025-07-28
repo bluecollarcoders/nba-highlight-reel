@@ -45,8 +45,8 @@ const useFetchVideos = (startDate, endDate) => {
 
             const adjustedEndDate = new Date(endDate);
 
-            // Set time to end of the day.
-            adjustedEndDate.setHours(23, 59, 59, 999); 
+            // Set time to end of the day
+            adjustedEndDate.setHours(23, 59, 59, 999);
             const endDateISO = adjustedEndDate.toISOString();
 
             let nextPageToken = '';
@@ -54,7 +54,7 @@ const useFetchVideos = (startDate, endDate) => {
 
             try {
                 do {
-                    // Old query
+        
                     const base = import.meta.env.VITE_API_BASE_URL;
 
                     if(!base) {
@@ -65,23 +65,26 @@ const useFetchVideos = (startDate, endDate) => {
                     // const url = `https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&maxResults=30&playlistId=${playlistId}&key=${apiKey}&pageToken=${nextPageToken}`;
                     
                     console.log('Fetching:', url);
+
                     const response = await fetch(url);
 
-                    if (!response.ok) {
-                    const errText = await response.text();
-                    throw new Error(`API error ${response.status}: ${errText}`);
+                    if (response.status === 403) {
+                        throw new Error("YouTube API quota exceeded. Try again later.");
                     }
 
                     const data = await response.json();
+                    console.log("API Response:", data);
 
                     if (data.items) {
 
-                        //  Check the full response.
-                        console.log("Raw API Response:", data); 
+                        // Log the full response for debugging.
+                        console.log("Raw API Response:", data);
+
+                        // Extract relevant video information.
                         allVideos = [...allVideos, ...data.items.map(video => ({
                             id: video.id.videoId || video.snippet.resourceId?.videoId,
                             snippet: video.snippet
-                        }))]; // Append results instead of replacing them
+                        }))]; 
                     }
                     
                     nextPageToken = data.nextPageToken || '';
@@ -102,7 +105,7 @@ const useFetchVideos = (startDate, endDate) => {
                 // Store only the videos array.
                 setVideos(filteredVideos);
 
-                // Store last fetch time.
+                // Store last fetch time
                 localStorage.setItem("lastFetchTime", now);
                 console.log("Processed videos for rendering:", allVideos);
                 
